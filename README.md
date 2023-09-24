@@ -2,6 +2,14 @@
 
 This script is designed to automate the initial deployment of Mastodon and its related components using Docker and bash scripting.
 
+This is a free-to-use Bash script that allows you to easily install Mastodon and enhance its security with a single command. You can utilize this script on a blank server or an existing server, making it suitable for both new and experienced Mastodon server owners.
+
+The script handles the entire Mastodon installation process, including activating the admin user. It ensures the security of your Mastodon server by changing the SSH port, installing a firewall, and automatically updating the firewall rules to reflect the new SSH port and installing Fail2Ban with progressive blocking rules.
+
+The Bash file is unencrypted, freely usable, and redistributable (though credit to Honeytree Technologies is required).
+
+
+
 ## About the Script
 
 - **Language**: Bash
@@ -70,4 +78,10 @@ It's essential to recognize that the security landscape is dynamic. Stay informe
      Restart script and choose one of the SSL certificate options:
      a. Attempt to reinstall this existing certificate.
      b. Renew & replace the certificate.
+
+## CREDITS
+
+This script and deployment guide have been made possible by [Honeytree Technologies, LLC](https://honeytreetech.com).
+
+Please follow [@jeff@honeytree.social](https://honeytree.social/@jeff).
 
