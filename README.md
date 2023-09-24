@@ -24,7 +24,7 @@ This script is designed to automate the initial deployment of Mastodon and its r
 
 1. SSH into the machine and assume root privileges.
 2. Create and navigate to a directory: `mkdir auto_script && cd auto_script`.
-3. Copy the `auto_script.sh` script to the file.
+3. Copy the `auto_script.sh` script to the directory.
 4. Set appropriate permissions: `sudo chmod +x auto_script.sh`.
 5. On lines 395-399 of the script you must set the credentials for your SMTP server
 6. Start the deployment: `./auto_script.sh`.
