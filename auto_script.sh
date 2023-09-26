@@ -212,7 +212,7 @@ services:
 
   console:
 
-    image: tootsuite/mastodon:latest
+    image: tootsuite/mastodon:4.2.0
 
     env_file: .env.mastodon
 
@@ -238,7 +238,7 @@ services:
 
   web:
 
-    image: tootsuite/mastodon:latest
+    image: tootsuite/mastodon:4.2.0
 
     restart: always
 
@@ -286,7 +286,7 @@ services:
 
   streaming:
 
-    image: tootsuite/mastodon:latest
+    image: tootsuite/mastodon:4.2.0
 
     restart: always
 
@@ -326,7 +326,7 @@ services:
 
   sidekiq:
 
-    image: tootsuite/mastodon:latest
+    image: tootsuite/mastodon:4.2.0
 
     restart: always
 

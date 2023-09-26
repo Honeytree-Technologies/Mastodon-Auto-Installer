@@ -18,6 +18,9 @@ The Bash file is unencrypted, freely usable, and redistributable (though credit 
   - Option to deploy Elasticsearch (not deployed by default).
   - Customizable Postgres DB size (defaults is 256MB).
   - SSL certificate generation via Let's Encrypt for designated domains and Nginx setup.
+- **Docker Image**:
+  - The docker image tag used for this automation `4.2.0`.
+
 
 ## Pre-requisites
 
