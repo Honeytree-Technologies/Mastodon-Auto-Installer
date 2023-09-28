@@ -1,13 +1,8 @@
-#!/bin/sh
-
-mkdir /root/auto_script
-# Create the main script
-cat <<EOD >> /root/auto_script/auto_script.sh
 #!/bin/bash
 
 while true; do
   read -p "Enter admin user name: " admin_user
-  if [ -n "\$admin_user" ]; then
+  if [ -n "$admin_user" ]; then
     break
   else
     echo "Admin name cannot be empty. Please enter admin name."
@@ -16,7 +11,7 @@ done
 
 while true; do
   read -p "Enter admin email: " admin_email
-  if [ -n "\$admin_email" ]; then
+  if [ -n "$admin_email" ]; then
     break
   else
     echo "Admin email cannot be empty. Please enter admin email."
@@ -25,7 +20,7 @@ done
 
 while true; do
   read -p "Enter valid domain name: " domain_name
-  if [ -n "\$domain_name" ]; then
+  if [ -n "$domain_name" ]; then
     break
   else
     echo "Domain cannot be empty. Please enter domain."
@@ -35,22 +30,22 @@ done
 while true; do
   read -p "Enter the postgres db size in mb (Default: 256mb): " db_size
   # set default value if value not present
-  if [ -z \${db_size} ] ; then
+  if [ -z ${db_size} ] ; then
     db_size=256
   fi
   # Check if input is numeric
-  if [[ "\${db_size}" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+  if [[ "${db_size}" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
       break  # Exit the loop if input is numeric
   else
       echo "Invalid input. Please enter numerical value."
   fi
 done
-echo "Your db_size is, \$db_size"
+echo "Your db_size is, $db_size"
 
 # choice for elastic search service
 while true; do
   read -p "Do you want elasticsearch service (yes/no): " choice
-  case "\$choice" in
+  case "$choice" in
     [Yy]*)
       es_status=true
       break
@@ -67,7 +62,7 @@ done
 
 while true; do
   read -p "Enter SMTP SERVER: " smtp_server
-  if [ -n "\$smtp_server" ]; then
+  if [ -n "$smtp_server" ]; then
     break
   else
     echo "SMTP SERVER cannot be empty. Please enter smtp server."
@@ -76,7 +71,7 @@ done
 
 while true; do
   read -p "Enter SMTP PORT: " smtp_port
-  if [ -n "\$smtp_port" ]; then
+  if [ -n "$smtp_port" ]; then
 
     break
   else
@@ -86,7 +81,7 @@ done
 
 while true; do
   read -p "Enter SMTP LOGIN: " smtp_login
-  if [ -n "\$smtp_login" ]; then
+  if [ -n "$smtp_login" ]; then
     break
   else
     echo "SMTP LOGIN cannot be empty. Please enter smtp_login."
@@ -95,7 +90,7 @@ done
 
 while true; do
   read -p "Enter SMTP_PASSWORD: " smtp_password
-  if [ -n "\$smtp_password" ]; then
+  if [ -n "$smtp_password" ]; then
     break
   else
     echo "SMTP_PASSWORD cannot be empty. Please enter smtp password."
@@ -104,7 +99,7 @@ done
 
 while true; do
   read -p "Enter SMTP FROM ADDRESS: " smtp_from_address
-  if [ -n "\$smtp_from_address" ]; then
+  if [ -n "$smtp_from_address" ]; then
     break
   else
     echo "SMTP FROM ADDRESS cannot be empty. Please enter smtp from address."
@@ -113,33 +108,33 @@ done
 
 
 read -p "Enter the DB USER NAME (Default: postgres): " db_user
-if [ -z \${db_user} ] ; then
+if [ -z ${db_user} ] ; then
   db_user=postgres
 fi
 
 read -p "Enter the DB PASSWORD (Default: postgres): " db_password
-if [ -z \${db_password} ] ; then
+if [ -z ${db_password} ] ; then
   db_password=postgres
 fi
 
 read -p "Enter the DB NAME (Default: mastadon_producation): " db_name
-if [ -z \${db_name} ] ; then
+if [ -z ${db_name} ] ; then
   db_name=mastadon_producation
 fi
 
 read -p "Enter the ELASTIC SEARCH USER (Default: elastic): " es_user
-if [ -z \${es_user} ] ; then
+if [ -z ${es_user} ] ; then
   es_user=elastic
 fi
 
 read -p "Enter the ELASTIC SEARCH PASSWORD (Default: password): " es_password
-if [ -z \${es_password} ] ; then
+if [ -z ${es_password} ] ; then
   es_password=password
 fi
 
 # Remove old docker container if docker already present 
 if docker -v &>/dev/null; then
-  sudo docker rm -f \$(docker ps -a -q)
+  sudo docker rm -f $(docker ps -a -q)
 fi
 
 # install new version of docker
@@ -149,25 +144,25 @@ if test -f /usr/share/keyrings/docker-archive-keyring.gpg; then
  sudo rm /usr/share/keyrings/docker-archive-keyring.gpg
 fi
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=\$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update -y
 sudo apt-get install -y  docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 # assign work directory
 work_dir=~/mastodon
 # Remove old work directory if present
-sudo rm -rf \${work_dir}
+sudo rm -rf ${work_dir}
 # Make new work directory
-mkdir \${work_dir}
+mkdir ${work_dir}
 
 # create blank a enviromental files for Mastodon
-touch \${work_dir}/.env.es
-touch \${work_dir}/.env.mastodon
-touch \${work_dir}/docker-compose.yml
-touch \${work_dir}/.env.db
+touch ${work_dir}/.env.es
+touch ${work_dir}/.env.mastodon
+touch ${work_dir}/docker-compose.yml
+touch ${work_dir}/.env.db
 
 # add content in the docker-compose file
-cat <<docker_content >>\${work_dir}/docker-compose.yml
+cat <<docker_content >>${work_dir}/docker-compose.yml
 version: '3'
 
 networks:
@@ -186,7 +181,7 @@ services:
 
     image: postgres:14-alpine
 
-    shm_size: \${db_size}mb 
+    shm_size: ${db_size}mb 
 
     networks:
 
@@ -446,47 +441,47 @@ services:
 docker_content
 
 # Add content in the.env.db file
-cat <<db_env >> \${work_dir}/.env.db
+cat <<db_env >> ${work_dir}/.env.db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 db_env
 
 # Add content in the .env.es file
-cat <<es_env >> \${work_dir}/.env.es
+cat <<es_env >> ${work_dir}/.env.es
 ELASTIC_PASSWORD=password
 es_env
 
 #Generate secret keys
-secret1=\$(docker compose -f \${work_dir}/docker-compose.yml run --rm console bundle exec rake secret)
-secret2=\$(docker compose -f \${work_dir}/docker-compose.yml run --rm console bundle exec rake secret)
-keys=\$(docker compose -f \${work_dir}/docker-compose.yml run --rm console bundle exec rake mastodon:webpush:generate_vapid_key)
-vapid_private_key=\$(echo "\$keys" | grep -o 'VAPID_PRIVATE_KEY=[^ ]*' | cut -d'=' -f2)=
-vapid_public_key=\$(echo "\$keys" | grep -o 'VAPID_PUBLIC_KEY=[^ ]*' | cut -d'=' -f2)=
+secret1=$(docker compose -f ${work_dir}/docker-compose.yml run --rm console bundle exec rake secret)
+secret2=$(docker compose -f ${work_dir}/docker-compose.yml run --rm console bundle exec rake secret)
+keys=$(docker compose -f ${work_dir}/docker-compose.yml run --rm console bundle exec rake mastodon:webpush:generate_vapid_key)
+vapid_private_key=$(echo "$keys" | grep -o 'VAPID_PRIVATE_KEY=[^ ]*' | cut -d'=' -f2)=
+vapid_public_key=$(echo "$keys" | grep -o 'VAPID_PUBLIC_KEY=[^ ]*' | cut -d'=' -f2)=
 
 # Add content in the .env.mastodon
-cat <<mastodon_env >> \${work_dir}/.env.mastodon
-LOCAL_DOMAIN=\${domain_name}
+cat <<mastodon_env >> ${work_dir}/.env.mastodon
+LOCAL_DOMAIN=${domain_name}
 REDIS_HOST=redis
 REDIS_PORT=6379
 DB_HOST=db
-DB_USER=\${db_user}
-DB_NAME=\${db_name}
-DB_PASS=\${db_password}
+DB_USER=${db_user}
+DB_NAME=${db_name}
+DB_PASS=${db_password}
 DB_PORT=5432
-ES_ENABLED=\${es_status}
+ES_ENABLED=${es_status}
 ES_HOST=es
 ES_PORT=9200
-ES_USER=\${es_user}
-ES_PASS=\${es_password}
-SECRET_KEY_BASE=\${secret1}
-OTP_SECRET=\${secret2}
-VAPID_PRIVATE_KEY=\${vapid_private_key}
-VAPID_PUBLIC_KEY=\${vapid_public_key}
-SMTP_SERVER=\${smtp_server}
-SMTP_PORT=\${smtp_port}
-SMTP_LOGIN=\${smtp_login}
-SMTP_PASSWORD=\${smtp_password}
-SMTP_FROM_ADDRESS=\${smtp_from_address}
+ES_USER=${es_user}
+ES_PASS=${es_password}
+SECRET_KEY_BASE=${secret1}
+OTP_SECRET=${secret2}
+VAPID_PRIVATE_KEY=${vapid_private_key}
+VAPID_PUBLIC_KEY=${vapid_public_key}
+SMTP_SERVER=${smtp_server}
+SMTP_PORT=${smtp_port}
+SMTP_LOGIN=${smtp_login}
+SMTP_PASSWORD=${smtp_password}
+SMTP_FROM_ADDRESS=${smtp_from_address}
 S3_ENABLED=false
 S3_BUCKET=<YOUR_OBJECT_STORAGE_BUCKET>
 AWS_ACCESS_KEY_ID=<YOUR_OBJECT_STORAGE_ACCESS_KEY>
@@ -497,13 +492,13 @@ SESSION_RETENTION_PERIOD=31556952
 mastodon_env
 
 #  start the PostgreSQL container
-docker compose -f \${work_dir}/docker-compose.yml up -d db
+docker compose -f ${work_dir}/docker-compose.yml up -d db
 
 #  Start the Elasticsearch container and make data directory.
-if [ "\$es_status" = true ]; then
- sudo mkdir -p \${work_dir}/data/elasticsearch
- sudo chown -R 1000:1000 \${work_dir}/data/elasticsearch
- docker compose -f \${work_dir}/docker-compose.yml up -d es
+if [ "$es_status" = true ]; then
+ sudo mkdir -p ${work_dir}/data/elasticsearch
+ sudo chown -R 1000:1000 ${work_dir}/data/elasticsearch
+ docker compose -f ${work_dir}/docker-compose.yml up -d es
 fi
 
 # increase the max_map_count
@@ -512,10 +507,10 @@ sudo sysctl -w vm.max_map_count=262144
 
 
 # Make Database setup 
-docker compose -f \${work_dir}/docker-compose.yml run --rm console bundle exec rake db:setup
+docker compose -f ${work_dir}/docker-compose.yml run --rm console bundle exec rake db:setup
 
 # Start Mastadon application.
-docker compose -f \${work_dir}/docker-compose.yml up -d
+docker compose -f ${work_dir}/docker-compose.yml up -d
 
 # Setting up the nginx 
 
@@ -533,23 +528,23 @@ touch /etc/nginx/sites-available/mastodon
 cat <<nginx_content >>/etc/nginx/sites-available/mastodon
 server {
 
-    server_name \${domain_name};
+    server_name ${domain_name};
 
 
 
-    proxy_set_header Host \\\$host;
+    proxy_set_header Host \$host;
 
-    proxy_set_header X-Real-IP \\\$remote_addr;
+    proxy_set_header X-Real-IP \$remote_addr;
 
-    proxy_set_header X-Forwarded-For \\\$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
 
-    proxy_set_header X-Forwarded-Proto \\\$scheme;
+    proxy_set_header X-Forwarded-Proto \$scheme;
 
     proxy_set_header Proxy "";
 
     proxy_http_version 1.1;
 
-    proxy_set_header Upgrade \\\$http_upgrade;
+    proxy_set_header Upgrade \$http_upgrade;
 
     proxy_set_header Connection "upgrade";
 
@@ -599,34 +594,34 @@ sudo ufw allow 'Nginx Full'
 sudo apt-get install -y certbot python3-certbot-nginx
 
 # Generate the ssl certificate for domain
-sudo certbot --nginx -d \${domain_name}
+sudo certbot --nginx -d ${domain_name}
 
 systemctl restart nginx
 
 # Enable toolctl toolctl in docker container
-docker compose -f \${work_dir}/docker-compose.yml run --rm console bin/tootctl
+docker compose -f ${work_dir}/docker-compose.yml run --rm console bin/tootctl
 
 # Generate Admin password
-admin_password=\$(docker compose -f \${work_dir}/docker-compose.yml run --rm console bin/tootctl accounts create \${admin_user} --email \${admin_email} --confirmed --role Admin | awk '/password:/{print $NF}')
+admin_password=$(docker compose -f ${work_dir}/docker-compose.yml run --rm console bin/tootctl accounts create ${admin_user} --email ${admin_email} --confirmed --role Admin | awk '/password:/{print }')
 
 # Remove Media files
-docker compose -f \${work_dir}/docker-compose.yml run --rm console bin/tootctl media remove
+docker compose -f ${work_dir}/docker-compose.yml run --rm console bin/tootctl media remove
 # Remove Preview cards
-docker compose -f \${work_dir}/docker-compose.yml run --rm console bin/tootctl preview_cards remove
+docker compose -f ${work_dir}/docker-compose.yml run --rm console bin/tootctl preview_cards remove
 
 # make cron job for Remove Media files and Remove Preview cards
-cat <<make_job >>\${work_dir}/auto-cleanup.sh 
+cat <<make_job >>${work_dir}/auto-cleanup.sh 
 #!/bin/sh
 
-docker compose -f \${work_dir}/docker-compose.yml run --rm console bin/tootctl media remove
+docker compose -f ${work_dir}/docker-compose.yml run --rm console bin/tootctl media remove
 
-docker compose -f \${work_dir}/docker-compose.yml run --rm console bin/tootctl preview_cards remove
+docker compose -f ${work_dir}/docker-compose.yml run --rm console bin/tootctl preview_cards remove
 make_job
 
 # Give permission to crontab 
-sudo chmod +x \${work_dir}/auto-cleanup.sh
+sudo chmod +x ${work_dir}/auto-cleanup.sh
 
-echo "0 0 * * * \${work_dir}/auto-cleanup.sh" | crontab -
+echo "0 0 * * * ${work_dir}/auto-cleanup.sh" | crontab -
 
 # change ssh port
 sudo cp /etc/ssh/ssh_config /etc/ssh/ssh_config_copy
@@ -1797,8 +1792,5 @@ fail2ban_ban
 # Restart the fail2ban service.
 sudo systemctl restart fail2ban
 echo "Congratulations your setup is done"
-echo "Admin email:  \${admin_email}  and  password: \${admin_password}"
-echo "The Mastodon instance can be accessed on https://\${domain_name}"
-EOD
- 
-chmod +x /root/auto_script/auto_script.sh
+echo "Admin email:  ${admin_email}  and  password: ${admin_password}"
+echo "The Mastodon instance can be accessed on https://${domain_name}"
