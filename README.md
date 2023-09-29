@@ -1,87 +1,83 @@
 # Mastodon Deployment Script
 
-This script is designed to automate the initial deployment of Mastodon and its related components using Docker and bash scripting.
+Automate your Mastodon installation using this deployment script powered by Docker and Bash. Enhance the security of your Mastodon instance with just one command.
 
-This is a free-to-use Bash script that allows you to easily install Mastodon and enhance its security with a single command. You can utilize this script on a blank server or an existing server, making it suitable for both new and experienced Mastodon server owners.
+Whether you're working with a fresh server or an existing setup, this script is designed for both new and veteran Mastodon admins.
 
-The script handles the entire Mastodon installation process, including activating the admin user. It ensures the security of your Mastodon server by changing the SSH port, installing a firewall, and automatically updating the firewall rules to reflect the new SSH port and installing Fail2Ban with progressive blocking rules.
+## Features
 
-The Bash file is unencrypted, freely usable, and redistributable (though credit to Honeytree Technologies is required).
+- 🚀 One-command deployment.
+- 🔐 Enhancements to server security (SSH port change, firewall setup, Fail2Ban integration).
+- 📘 Open-source and redistributable (a credit and shout out to Honeytree Technologies is greatly appreciated).
 
-
-
-## About the Script
+## Script Details
 
 - **Language**: Bash
-- **Deployment**: Uses Docker images for deploying Mastodon containers.
-- **Configuration**:
-  - Option to deploy Elasticsearch (not deployed by default).
-  - Customizable Postgres DB size (defaults is 256MB).
-  - SSL certificate generation via Let's Encrypt for designated domains and Nginx setup.
+- **Deployment**: Docker-based Mastodon installation.
+- **Configuration Options**:
+  - Elasticsearch deployment (off by default).
+  - Adjustable Postgres DB size (default: 256MB).
+  - Automatic SSL certificate creation using Let's Encrypt along with Nginx configuration.
 
-## Pre-requisites
+## Requirements
 
-  - A server or VPS equipped with at least 4GB RAM, 2 vCPU, and 65 GB storage.
-  - Ubuntu v22.04 LTS installed.
-  - Ports opened: 22922 (SSH), 443, and 80.
-  - The machine must have internet connectivity to download packages and Docker images.
-  - Ensure the machine's IP address is pointed to your domain name at the domain registrar. This is essential for SSL certificate generation.
-  - Access to an email delivery service or SMTP server.
+- Server or VPS with minimum 4GB RAM, 2 vCPU, and 65 GB storage.
+- Ubuntu v22.04 LTS.
+- Open ports: 22922 (SSH), 443, and 80.
+- Active internet connection to fetch packages and Docker images.
+- Domain name pointing to the server's IP address (necessary for SSL certification).
+- An email delivery service or SMTP server.
 
-## Deployment Steps
+## Installation Steps
 
-1. SSH into the machine and assume root privileges.
-2. Create and navigate to a directory: `mkdir auto_script && cd auto_script`.
-3. Copy the `auto_script.sh` script to the directory.
-4. Set appropriate permissions: `sudo chmod +x auto_script.sh`.
-5. On lines 395-399 of the script you must set the credentials for your SMTP server
-6. Start the deployment: `./auto_script.sh`.
-7. Input the requested details: username, email, domain name, DB size, Elasticsearch preference.
-8. Accept terms of service as prompted.
-9. Follow the on-screen instructions to complete the setup.
+1. Log into your server as the root user.
+2. Execute the following command in your terminal:
 
-## Post Deployment
+    ```
+    curl -sSL http://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
+    ```
 
-- Access Mastodon via the provided domain with the given admin credentials.
-- SSH port defaults to 22922.
-- fail2ban is activated with progressive blocking.
+3. Follow the prompts to enter details like username, email, domain name, SMTP server information, DB size, Elasticsearch preference, etc.
 
-## Post-Installation Security Recommendations
+## After Installation
 
-Once you have successfully deployed Mastodon using this script, it's crucial to take additional steps to secure and harden your environment. 
+- Visit your Mastodon instance using the provided domain.
+- Default SSH port: 22922.
+- Fail2Ban is active and set to block progressively.
 
-Consider the following actions:
+## Security Recommendations
 
-- **Regular Updates**: Ensure that all system packages and software are regularly updated to patch potential vulnerabilities.
-- **Firewall Configuration**: Fine-tune your firewall settings to allow only necessary traffic and block potential threats.
-- **User Access**: Limit or disable root access. Use sudo for administrative tasks and avoid using the root account for daily tasks.
-- **Secure Passwords**: Implement strong password policies, and consider using password managers.
-- **Two-Factor Authentication**: Where possible, enable 2FA for critical services and accounts.
-- **Backup**: Regularly back up critical data and ensure backups are stored securely.
-- **Monitoring & Logging**: Set up monitoring and logging to detect and alert on suspicious activities.
-- **Application-Specific Security**: Explore and implement security best practices specifically tailored to Mastodon and any other applications you might be running.
-- **Review and Audit**: Periodically review and audit your security settings and practices to ensure they are up-to-date with the latest threats and vulnerabilities.
+For optimal security post-installation, consider:
 
-It's essential to recognize that the security landscape is dynamic. Stay informed, and be proactive in securing your digital assets.
+- **Regular Updates**: Keep system packages and applications up-to-date.
+- **Firewall Tuning**: Restrict traffic to only necessary ports.
+- **User Management**: Minimize or disable root access. Use sudo for admin tasks.
+- **Password Policies**: Adopt strong passwords. Consider password manager usage.
+- **Two-Factor Authentication (2FA)**: Enable 2FA for vital services/accounts.
+- **Backups**: Create regular backups and store them securely.
+- **Monitoring & Logging**: Monitor for unusual activities and set up alerts.
+- **Application Security**: Research and apply Mastodon-specific security practices.
+- **Periodic Review**: Regularly assess your security measures.
 
+Staying informed and proactive is key in the digital security landscape.
 
 ## Troubleshooting
 
-### Known Errors
+### Known Issues
 
-1. Error: "Could not get lock /var/lib/dpkg/lock-frontend..."
+1. **Error**: "Could not get lock /var/lib/dpkg/lock-frontend..."
    - **Cause**: `unattended-upgr` process.
-   - **Solution**: 
+   - **Fix**:
+
      ```bash
      sudo rm /var/lib/dpkg/lock-frontend
      ```
-     Restart script and choose one of the SSL certificate options:
-     a. Attempt to reinstall this existing certificate.
+     Then, restart the script and pick an SSL certificate option:
+     a. Try reinstalling the current certificate.
      b. Renew & replace the certificate.
 
-## CREDITS
+## Credits
 
-This script and deployment guide have been made possible by [Honeytree Technologies, LLC](https://honeytreetech.com).
+A big thank you to [Honeytree Technologies, LLC](https://honeytreetech.com) for making this script possible.
 
-Please follow [@jeff@honeytree.social](https://honeytree.social/@jeff).
-
+Stay connected with us on Mastodon: [@jeff@honeytree.social](https://honeytree.social/@jeff).
