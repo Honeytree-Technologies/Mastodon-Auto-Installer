@@ -117,9 +117,9 @@ if [ -z ${db_password} ] ; then
   db_password=postgres
 fi
 
-read -p "Enter the DB NAME (Default: mastadon_producation): " db_name
+read -p "Enter the DB NAME (Default: mastadon_production): " db_name
 if [ -z ${db_name} ] ; then
-  db_name=mastadon_producation
+  db_name=mastodon_production
 fi
 
 read -p "Enter the ELASTIC SEARCH USER (Default: elastic): " es_user
@@ -509,7 +509,7 @@ sudo sysctl -w vm.max_map_count=262144
 # Make Database setup 
 docker compose -f ${work_dir}/docker-compose.yml run --rm console bundle exec rake db:setup
 
-# Start Mastadon application.
+# Start Mastodon application.
 docker compose -f ${work_dir}/docker-compose.yml up -d
 
 # Setting up the nginx 
