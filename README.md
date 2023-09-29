@@ -42,7 +42,8 @@ Whether you're working with a fresh server or an existing setup, this script is 
 ## After Installation
 
 - Visit your Mastodon instance using the provided domain.
-- Default SSH port: 22922.
+- Default SSH port is set to: 22922.
+- UFW Firewall rules are updated.
 - Fail2Ban is active and set to block progressively.
 
 ## Security Recommendations
