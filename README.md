@@ -21,12 +21,12 @@ The Bash file is unencrypted, freely usable, and redistributable (though credit 
 
 ## Pre-requisites
 
-- Server or VPS with a minimum of 4GB Ram, 2 vCPU, and 65 GB storage.
-- Ubuntu v20.04 LTS pre-installed.
-- Open ports: 22922 (SSH), 443 and 80
-- Machine should have internet access for fetching packages and Docker images.
-- Pre-register the machine's IP with the domain for SSL certificate generation.
-- An email delivery service or SMTP server.
+  - A server or VPS equipped with at least 4GB RAM, 2 vCPU, and 65 GB storage.
+  - Ubuntu v22.04 LTS installed.
+  - Ports opened: 22922 (SSH), 443, and 80.
+  - The machine must have internet connectivity to download packages and Docker images.
+  - Ensure the machine's IP address is pointed to your domain name at the domain registrar. This is essential for SSL certificate generation.
+  - Access to an email delivery service or SMTP server.
 
 ## Deployment Steps
 
@@ -38,7 +38,7 @@ The Bash file is unencrypted, freely usable, and redistributable (though credit 
 6. Start the deployment: `./auto_script.sh`.
 7. Input the requested details: username, email, domain name, DB size, Elasticsearch preference.
 8. Accept terms of service as prompted.
-9. Follow further on-screen instructions to complete the setup.
+9. Follow the on-screen instructions to complete the setup.
 
 ## Post Deployment
 
