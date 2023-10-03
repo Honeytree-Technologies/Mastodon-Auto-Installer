@@ -32,13 +32,33 @@ The Bash file is unencrypted, freely usable, and redistributable (though credit 
 
 1. SSH into the machine and assume root privileges.
 2. Create and navigate to a directory: `mkdir auto_script && cd auto_script`.
-3. Copy the `auto_script.sh` script to the directory.
-4. Set appropriate permissions: `sudo chmod +x auto_script.sh`.
-5. On lines 395-399 of the script you must set the credentials for your SMTP server
-6. Start the deployment: `./auto_script.sh`.
-7. Input the requested details: username, email, domain name, DB size, Elasticsearch preference.
-8. Accept terms of service as prompted.
-9. Follow further on-screen instructions to complete the setup.
+    You can also use own directory.
+3. Run the following command to start the script.
+    ```bash
+    curl -sSL http://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
+    ```
+4. Input the requested details as per the following table.
+    | Name | Description | Mandatory | Optional | Default Value | 
+    |------|---------|-----------|----------|---------------|
+    | `admin_user`|Admin user name| &checkmark; | &#10006;| &#10006; | 
+    |`admin_email` | Admin email| &checkmark;| &#10006;| &#10006;|
+    |`domain_name` | Domain name| &checkmark;| &#10006;| &#10006;|
+    |`db_size` | Database size | &#10006;|  &checkmark;| 256 MB | 
+    |`es_status` | elasticsearch service choice (`yes`/`no`)| &checkmark;| &#10006;| &#10006;|
+    |`smtp_server` | SMTP server| &checkmark;| &#10006;| &#10006;|
+    |`smtp_port` | SMTP port| &checkmark;| &#10006;| &#10006;|
+    |`smtp_login` | SMTP login| &checkmark;| &#10006;| &#10006;|
+    |`smtp_password` | SMTP password| &checkmark;| &#10006;| &#10006;|
+    |`smtp_from_address` | SMTP from address| &checkmark;| &#10006;| &#10006;|
+    |`db_user` | Database user| &#10006;| &checkmark;|postgres |
+    |`db_password` | Database Password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+    |`db_name` | Database name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
+    |`es_user` | Elasticsearch user name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
+    |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+
+                                
+5. Accept terms of service as prompted.
+6. Follow further on-screen instructions to complete the setup.
 
 ## Post Deployment
 
