@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Function to generate a random character
+function random_char() {
+  local chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  echo -n "${chars:RANDOM%${#chars}:1}"
+}
+
+# Function to generate a random string of a given length
+function random_string() {
+  local length=$1
+  local result=""
+  for ((i = 0; i < length; i++)); do
+    result="${result}$(random_char)"
+  done
+  echo -n "$result"
+}
+
 while true; do
   read -p "Enter admin user name: " admin_user
   if [ -n "$admin_user" ]; then
@@ -112,24 +128,27 @@ if [ -z ${db_user} ] ; then
   db_user=postgres
 fi
 
-read -p "Enter the DB PASSWORD (Default: postgres): " db_password
+temp_password="pass_$(random_string 16)"
+read -p "Enter the DB PASSWORD (Default: ${temp_password}): " db_password
 if [ -z ${db_password} ] ; then
-  db_password=postgres
+  db_password=${temp_password}
 fi
-
-read -p "Enter the DB NAME (Default: mastadon_producation): " db_name
+echo "your db password is ${db_password}"
+temp_db="masto_$(random_string 8)"
+read -p "Enter the DB NAME (Default: ${temp_db}): " db_name
 if [ -z ${db_name} ] ; then
-  db_name=mastadon_producation
+  db_name=${temp_db}
 fi
+echo "Your db name is ${db_name}"
 
 read -p "Enter the ELASTIC SEARCH USER (Default: elastic): " es_user
 if [ -z ${es_user} ] ; then
   es_user=elastic
 fi
-
-read -p "Enter the ELASTIC SEARCH PASSWORD (Default: password): " es_password
+e_temp_password="pass_$(random_string 16)"
+read -p "Enter the ELASTIC SEARCH PASSWORD (Default: ${e_temp_password}): " es_password
 if [ -z ${es_password} ] ; then
-  es_password=password
+  es_password=${e_temp_password}
 fi
 
 # Remove old docker container if docker already present 
@@ -1793,4 +1812,8 @@ fail2ban_ban
 sudo systemctl restart fail2ban
 echo "Congratulations your setup is done"
 echo "Admin email:  ${admin_email}  and  password: ${admin_password}"
+echo "Database user:  ${db_user}  ,  password: ${db_password}  and name ${db_name}"
+echo "Elasticsearch user name:  ${es_user}  and  password: ${es_password}"
 echo "The Mastodon instance can be accessed on https://${domain_name}"
+
+
