@@ -1,4 +1,4 @@
-# Mastodon Deployment Script
+# Mastodon Auto Installer Script
 
 Automate your Mastodon installation using this deployment script powered by Docker and Bash. Enhance the security of your Mastodon instance with just one command.
 
