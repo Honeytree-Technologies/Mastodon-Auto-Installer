@@ -1,5 +1,6 @@
 #!/bin/bash
 
+ user_inputs
 # Function to generate a random character
 function random_char() {
   local chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -16,6 +17,8 @@ function random_string() {
   echo -n "$result"
 }
 
+=======
+ main
 while true; do
   read -p "Enter admin user name: " admin_user
   if [ -n "$admin_user" ]; then
@@ -128,6 +131,7 @@ if [ -z ${db_user} ] ; then
   db_user=postgres
 fi
 
+ user_inputs
 temp_password="pass_$(random_string 16)"
 read -p "Enter the DB PASSWORD (Default: ${temp_password}): " db_password
 if [ -z ${db_password} ] ; then
@@ -140,15 +144,33 @@ if [ -z ${db_name} ] ; then
   db_name=${temp_db}
 fi
 echo "Your db name is ${db_name}"
+=======
+read -p "Enter the DB PASSWORD (Default: postgres): " db_password
+if [ -z ${db_password} ] ; then
+  db_password=postgres
+fi
+
+read -p "Enter the DB NAME (Default: mastadon_production): " db_name
+if [ -z ${db_name} ] ; then
+  db_name=mastodon_production
+fi
+ main
 
 read -p "Enter the ELASTIC SEARCH USER (Default: elastic): " es_user
 if [ -z ${es_user} ] ; then
   es_user=elastic
 fi
+ user_inputs
 e_temp_password="pass_$(random_string 16)"
 read -p "Enter the ELASTIC SEARCH PASSWORD (Default: ${e_temp_password}): " es_password
 if [ -z ${es_password} ] ; then
   es_password=${e_temp_password}
+=======
+
+read -p "Enter the ELASTIC SEARCH PASSWORD (Default: password): " es_password
+if [ -z ${es_password} ] ; then
+  es_password=password
+ main
 fi
 
 # Remove old docker container if docker already present 
@@ -528,7 +550,11 @@ sudo sysctl -w vm.max_map_count=262144
 # Make Database setup 
 docker compose -f ${work_dir}/docker-compose.yml run --rm console bundle exec rake db:setup
 
+ user_inputs
 # Start Mastadon application.
+=======
+# Start Mastodon application.
+ main
 docker compose -f ${work_dir}/docker-compose.yml up -d
 
 # Setting up the nginx 
@@ -1812,8 +1838,12 @@ fail2ban_ban
 sudo systemctl restart fail2ban
 echo "Congratulations your setup is done"
 echo "Admin email:  ${admin_email}  and  password: ${admin_password}"
+ user_inputs
 echo "Database user:  ${db_user}  ,  password: ${db_password}  and name ${db_name}"
 echo "Elasticsearch user name:  ${es_user}  and  password: ${es_password}"
 echo "The Mastodon instance can be accessed on https://${domain_name}"
 
 
+=======
+echo "The Mastodon instance can be accessed on https://${domain_name}"
+ main
