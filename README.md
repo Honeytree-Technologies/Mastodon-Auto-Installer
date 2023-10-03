@@ -30,8 +30,40 @@ Whether you're working with a fresh server or an existing setup, this script is 
 
 ## Installation Steps
 
+user_inputs
+1. SSH into the machine and assume root privileges.
+2. Create and navigate to a directory: `mkdir auto_script && cd auto_script`.
+    You can also use own directory.
+3. Run the following command to start the script.
+    ```bash
+    curl -sSL http://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
+    ```
+4. Input the requested details as per the following table.
+    | Name | Description | Mandatory | Optional | Default Value | 
+    |------|---------|-----------|----------|---------------|
+    | `admin_user`|Admin user name| &checkmark; | &#10006;| &#10006; | 
+    |`admin_email` | Admin email| &checkmark;| &#10006;| &#10006;|
+    |`domain_name` | Domain name| &checkmark;| &#10006;| &#10006;|
+    |`db_size` | Database size | &#10006;|  &checkmark;| 256 MB | 
+    |`es_status` | elasticsearch service choice (`yes`/`no`)| &checkmark;| &#10006;| &#10006;|
+    |`smtp_server` | SMTP server| &checkmark;| &#10006;| &#10006;|
+    |`smtp_port` | SMTP port| &checkmark;| &#10006;| &#10006;|
+    |`smtp_login` | SMTP login| &checkmark;| &#10006;| &#10006;|
+    |`smtp_password` | SMTP password| &checkmark;| &#10006;| &#10006;|
+    |`smtp_from_address` | SMTP from address| &checkmark;| &#10006;| &#10006;|
+    |`db_user` | Database user| &#10006;| &checkmark;|postgres |
+    |`db_password` | Database Password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+    |`db_name` | Database name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
+    |`es_user` | Elasticsearch user name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
+    |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+
+                                
+5. Accept terms of service as prompted.
+6. Follow further on-screen instructions to complete the setup.
+=======
 1. Log into your server as the root user.
 2. Execute the following command in your terminal:
+ main
 
     ```
     curl -sSL http://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
