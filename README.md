@@ -31,7 +31,7 @@ Whether you're working with a fresh server or an existing setup, this script is 
 user_inputs
 1. SSH into the machine and assume root privileges.
 2. Create and navigate to a directory: `mkdir auto_script && cd auto_script`.
-    You can also use own directory.
+ 
 3. Run the following command to start the script.
     ```bash
     curl -sSL https://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
