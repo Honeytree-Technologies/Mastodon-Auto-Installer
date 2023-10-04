@@ -1,5 +1,3 @@
-# Mastodon Auto Installer Script
-
 Automate your Mastodon installation using this deployment script powered by Docker and Bash. Enhance the security of your Mastodon instance with just one command.
 
 Whether you're working with a fresh server or an existing setup, this script is designed for both new and veteran Mastodon admins.
@@ -36,7 +34,7 @@ user_inputs
     You can also use own directory.
 3. Run the following command to start the script.
     ```bash
-    curl -sSL http://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
+    curl -sSL https://github.com/Honeytree-Technologies/Mastodon-Auto-Installer/blob/main/auto_script/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
     ```
 4. Input the requested details as per the following table.
     | Name | Description | Mandatory | Optional | Default Value | 
