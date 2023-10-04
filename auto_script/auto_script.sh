@@ -1,4 +1,32 @@
 #!/bin/bash
+# Display the script header, providing basic information about the script.
+echo "######################################################################"
+echo "#                                                                    #"
+echo "#            Mastodon Installation and Hardening Script              #"
+echo "#                                                                    #"
+echo "#              Created by Honeytree Technologies, LLC                #"
+echo "#                        www.honeytreetech.com                       #"
+echo "#                                                                    #"
+echo "#                    Mastodon: honeytree.social                      #"
+echo "#                    Email: info@honeytreetech.com                   #"
+echo "#                                                                    #"
+echo "######################################################################"
+
+# Pause the script for 3 seconds to allow the user to read the header
+sleep 3
+
+# Display more detailed information about what each option does
+echo "########################################################################"
+echo "##### THIS IS IMPORTANT, PLEASE READ CAREFULLY BEFORE SELECTING    #####"
+echo "#####                                                              #####"
+echo "#####  This will install Mastodon on fresh server.                 #####"
+echo "#####                                                              #####"
+echo "##### Installing on an operating Mastodon server will wipe data.   #####"
+echo "#####                                                              #####"
+echo "########################################################################"
+
+# Pause the script for 3 seconds to allow the user to read the warning
+sleep 3
 
 # Function to generate a random character
 function random_char() {
