@@ -36,7 +36,8 @@ user_inputs
     ```bash
     curl -sSL https://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
     ```
-4. You will be prompted for installation details per the following table.
+4. Follow further on-screen instructions to complete the setup.
+5. You will be prompted for installation details per the following table.
     | Name | Description | Mandatory | Optional | Default Value | 
     |------|---------|-----------|----------|---------------|
     | `admin_user`|Admin user name| &checkmark; | &#10006;| &#10006; | 
@@ -56,19 +57,6 @@ user_inputs
     |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (where X is Random character) |
 
                                 
-5. Accept terms of service as prompted.
-6. Follow further on-screen instructions to complete the setup.
-=======
-1. Log into your server as the root user.
-2. Execute the following command in your terminal:
- main
-
-    ```
-    curl -sSL http://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
-    ```
-
-3. Follow the prompts to enter details like username, email, domain name, SMTP server information, DB size, Elasticsearch preference, etc.
-
 ## After Installation
 
 - Visit your Mastodon instance using the provided domain.
