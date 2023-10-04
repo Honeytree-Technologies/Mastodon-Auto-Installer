@@ -34,9 +34,9 @@ user_inputs
     You can also use own directory.
 3. Run the following command to start the script.
     ```bash
-    curl -sSL https://github.com/Honeytree-Technologies/Mastodon-Auto-Installer/blob/main/auto_script/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
+    curl -sSL https://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
     ```
-4. Input the requested details as per the following table.
+4. You will be prompted for installation details per the following table.
     | Name | Description | Mandatory | Optional | Default Value | 
     |------|---------|-----------|----------|---------------|
     | `admin_user`|Admin user name| &checkmark; | &#10006;| &#10006; | 
@@ -50,10 +50,10 @@ user_inputs
     |`smtp_password` | SMTP password| &checkmark;| &#10006;| &#10006;|
     |`smtp_from_address` | SMTP from address| &checkmark;| &#10006;| &#10006;|
     |`db_user` | Database user| &#10006;| &checkmark;|postgres |
-    |`db_password` | Database Password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
-    |`db_name` | Database name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
-    |`es_user` | Elasticsearch user name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
-    |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+    |`db_password` | Database Password| &#10006;| &checkmark;|pass_XXXXXXXXX (where X is Random character) |
+    |`db_name` | Database name| &#10006;| &checkmark;|masto_XXXXXXXXX (where X is Random character) |
+    |`es_user` | Elasticsearch user name| &#10006;| &checkmark;|masto_XXXXXXXXX (where X is Random character) |
+    |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (where X is Random character) |
 
                                 
 5. Accept terms of service as prompted.
