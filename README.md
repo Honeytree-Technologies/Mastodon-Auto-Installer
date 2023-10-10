@@ -33,7 +33,7 @@ Whether you're working with a fresh server or an existing setup, this script is 
     You can also use own directory.
 3. Run the following command to start the script.
     ```bash
-    curl -sSL https://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
+    curl -sSL https://code.honeytreetech.com/fediverse/mastodon/auto-installer/masto_auto_script.sh -o ./masto_auto_script.sh && sudo chmod +x masto_auto_script.sh && ./masto_auto_script.sh
     ```
 4. Follow further on-screen instructions to complete the setup.
 5. You will be prompted for installation details per the following table.
