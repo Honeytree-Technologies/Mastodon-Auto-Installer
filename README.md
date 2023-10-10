@@ -1,43 +1,42 @@
-# Mastodon Deployment Script
+Automate your Mastodon installation using this deployment script powered by Docker and Bash. Enhance the security of your Mastodon instance with just one command.
 
-This script is designed to automate the initial deployment of Mastodon and its related components using Docker and bash scripting.
+Whether you're working with a fresh server or an existing setup, this script is designed for both new and veteran Mastodon admins.
 
-This is a free-to-use Bash script that allows you to easily install Mastodon and enhance its security with a single command. You can utilize this script on a blank server or an existing server, making it suitable for both new and experienced Mastodon server owners.
+## Features
 
-The script handles the entire Mastodon installation process, including activating the admin user. It ensures the security of your Mastodon server by changing the SSH port, installing a firewall, and automatically updating the firewall rules to reflect the new SSH port and installing Fail2Ban with progressive blocking rules.
+- 🚀 One-command deployment.
+- 🔐 Enhancements to server security (SSH port change, firewall setup, Fail2Ban integration).
+- 📘 Open-source and redistributable (a credit and shout out to Honeytree Technologies is greatly appreciated).
 
-The Bash file is unencrypted, freely usable, and redistributable (though credit to Honeytree Technologies is required).
-
-
-
-## About the Script
+## Script Details
 
 - **Language**: Bash
-- **Deployment**: Uses Docker images for deploying Mastodon containers.
-- **Configuration**:
-  - Option to deploy Elasticsearch (not deployed by default).
-  - Customizable Postgres DB size (defaults is 256MB).
-  - SSL certificate generation via Let's Encrypt for designated domains and Nginx setup.
+- **Deployment**: Docker-based Mastodon installation.
+- **Configuration Options**:
+  - Elasticsearch deployment (off by default).
+  - Adjustable Postgres DB size (default: 256MB).
+  - Automatic SSL certificate creation using Let's Encrypt along with Nginx configuration.
 
-## Pre-requisites
+## Requirements
 
-- Server or VPS with a minimum of 4GB Ram, 2 vCPU, and 65 GB storage.
-- Ubuntu v20.04 LTS pre-installed.
-- Open ports: 22922 (SSH), 443 and 80
-- Machine should have internet access for fetching packages and Docker images.
-- Pre-register the machine's IP with the domain for SSL certificate generation.
+- Server or VPS with minimum 4GB RAM, 2 vCPU, and 65 GB storage.
+- Ubuntu v22.04 LTS.
+- Open ports:  443, 80 and SSH (Which you will choose in he script).
+- Active internet connection to fetch packages and Docker images.
+- Domain name pointing to the server's IP address (necessary for SSL certification).
 - An email delivery service or SMTP server.
 
-## Deployment Steps
+## Installation Steps
 
 1. SSH into the machine and assume root privileges.
 2. Create and navigate to a directory: `mkdir auto_script && cd auto_script`.
     You can also use own directory.
 3. Run the following command to start the script.
     ```bash
-    curl -sSL http://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
+    curl -sSL https://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
     ```
-4. Input the requested details as per the following table.
+4. Follow further on-screen instructions to complete the setup.
+5. You will be prompted for installation details per the following table.
     | Name | Description | Mandatory | Optional | Default Value | 
     |------|---------|-----------|----------|---------------|
     | `admin_user`|Admin user name| &checkmark; | &#10006;| &#10006; | 
@@ -55,6 +54,7 @@ The Bash file is unencrypted, freely usable, and redistributable (though credit 
     |`db_name` | Database name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
     |`es_user` | Elasticsearch user name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
     |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+   |`port` | SSH port | &checkmark;| &#10006;| &#10006;|
 
                                 
 5. Accept terms of service as prompted.
@@ -63,7 +63,7 @@ The Bash file is unencrypted, freely usable, and redistributable (though credit 
 ## Post Deployment
 
 - Access Mastodon via the provided domain with the given admin credentials.
-- SSH port defaults to 22922.
+- SSH port defaults to new port (which you entered in the script).
 - fail2ban is activated with progressive blocking.
 
 ## Post-Installation Security Recommendations
@@ -84,24 +84,22 @@ Consider the following actions:
 
 It's essential to recognize that the security landscape is dynamic. Stay informed, and be proactive in securing your digital assets.
 
-
 ## Troubleshooting
+### Known Issues
 
-### Known Errors
-
-1. Error: "Could not get lock /var/lib/dpkg/lock-frontend..."
+1. **Error**: "Could not get lock /var/lib/dpkg/lock-frontend..."
    - **Cause**: `unattended-upgr` process.
-   - **Solution**: 
+   - **Fix**:
+
      ```bash
      sudo rm /var/lib/dpkg/lock-frontend
      ```
-     Restart script and choose one of the SSL certificate options:
-     a. Attempt to reinstall this existing certificate.
+     Then, restart the script and pick an SSL certificate option:
+     a. Try reinstalling the current certificate.
      b. Renew & replace the certificate.
 
-## CREDITS
+## Credits
 
-This script and deployment guide have been made possible by [Honeytree Technologies, LLC](https://honeytreetech.com).
+A big thank you to [Honeytree Technologies, LLC](https://honeytreetech.com) for making this script possible.
 
-Please follow [@jeff@honeytree.social](https://honeytree.social/@jeff).
-
+Stay connected with us on Mastodon: [@jeff@honeytree.social](https://honeytree.social/@jeff).
