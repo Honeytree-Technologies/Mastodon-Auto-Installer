@@ -21,17 +21,16 @@ Whether you're working with a fresh server or an existing setup, this script is 
 
 - Server or VPS with minimum 4GB RAM, 2 vCPU, and 65 GB storage.
 - Ubuntu v22.04 LTS.
-- Open ports: 22922 (SSH), 443, and 80.
+- Open ports:  443, 80 and SSH (Which you will choose in the script).
 - Active internet connection to fetch packages and Docker images.
 - Domain name pointing to the server's IP address (necessary for SSL certification).
 - An email delivery service or SMTP server.
 
 ## Installation Steps
 
-user_inputs
 1. SSH into the machine and assume root privileges.
 2. Create and navigate to a directory: `mkdir auto_script && cd auto_script`.
- 
+    You can also use own directory.
 3. Run the following command to start the script.
     ```bash
     curl -sSL https://code.honeytreetech.com/fediverse/mastodon/auto-installer/auto_script.sh -o ./auto_script.sh && sudo chmod +x auto_script.sh && ./auto_script.sh
@@ -51,37 +50,41 @@ user_inputs
     |`smtp_password` | SMTP password| &checkmark;| &#10006;| &#10006;|
     |`smtp_from_address` | SMTP from address| &checkmark;| &#10006;| &#10006;|
     |`db_user` | Database user| &#10006;| &checkmark;|postgres |
-    |`db_password` | Database Password| &#10006;| &checkmark;|pass_XXXXXXXXX (where X is Random character) |
-    |`db_name` | Database name| &#10006;| &checkmark;|masto_XXXXXXXXX (where X is Random character) |
-    |`es_user` | Elasticsearch user name| &#10006;| &checkmark;|masto_XXXXXXXXX (where X is Random character) |
-    |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (where X is Random character) |
+    |`db_password` | Database Password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+    |`db_name` | Database name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
+    |`es_user` | Elasticsearch user name| &#10006;| &checkmark;|masto_XXXXXXXXX (whereX is Random character) |
+    |`es_password` | Elasticsearch password| &#10006;| &checkmark;|pass_XXXXXXXXX (whereX is Random character) |
+   |`port` | SSH port | &checkmark;| &#10006;| &#10006;|
 
                                 
-## After Installation
+5. Accept terms of service as prompted.
+6. Follow further on-screen instructions to complete the setup.
 
-- Visit your Mastodon instance using the provided domain.
-- Default SSH port is set to: 22922.
-- UFW Firewall rules are updated.
-- Fail2Ban is active and set to block progressively.
+## Post Deployment
 
-## Security Recommendations
+- Access Mastodon via the provided domain with the given admin credentials.
+- SSH port defaults to new port (which you entered in the script).
+- fail2ban is activated with progressive blocking.
 
-For optimal security post-installation, consider:
+## Post-Installation Security Recommendations
 
-- **Regular Updates**: Keep system packages and applications up-to-date.
-- **Firewall Tuning**: Restrict traffic to only necessary ports.
-- **User Management**: Minimize or disable root access. Use sudo for admin tasks.
-- **Password Policies**: Adopt strong passwords. Consider password manager usage.
-- **Two-Factor Authentication (2FA)**: Enable 2FA for vital services/accounts.
-- **Backups**: Create regular backups and store them securely.
-- **Monitoring & Logging**: Monitor for unusual activities and set up alerts.
-- **Application Security**: Research and apply Mastodon-specific security practices.
-- **Periodic Review**: Regularly assess your security measures.
+Once you have successfully deployed Mastodon using this script, it's crucial to take additional steps to secure and harden your environment. 
 
-Staying informed and proactive is key in the digital security landscape.
+Consider the following actions:
+
+- **Regular Updates**: Ensure that all system packages and software are regularly updated to patch potential vulnerabilities.
+- **Firewall Configuration**: Fine-tune your firewall settings to allow only necessary traffic and block potential threats.
+- **User Access**: Limit or disable root access. Use sudo for administrative tasks and avoid using the root account for daily tasks.
+- **Secure Passwords**: Implement strong password policies, and consider using password managers.
+- **Two-Factor Authentication**: Where possible, enable 2FA for critical services and accounts.
+- **Backup**: Regularly back up critical data and ensure backups are stored securely.
+- **Monitoring & Logging**: Set up monitoring and logging to detect and alert on suspicious activities.
+- **Application-Specific Security**: Explore and implement security best practices specifically tailored to Mastodon and any other applications you might be running.
+- **Review and Audit**: Periodically review and audit your security settings and practices to ensure they are up-to-date with the latest threats and vulnerabilities.
+
+It's essential to recognize that the security landscape is dynamic. Stay informed, and be proactive in securing your digital assets.
 
 ## Troubleshooting
-
 ### Known Issues
 
 1. **Error**: "Could not get lock /var/lib/dpkg/lock-frontend..."

@@ -44,6 +44,23 @@ function random_string() {
   echo -n "$result"
 }
 
+# Function to validate if the port number is within the specified range
+validate_port() {
+    local port=$1
+    local excluded_ports=("80" "443" "3000")
+
+    if [[ $port =~ ^[0-9]+$ && $port -ge 0 && $port -le 65536 ]]; then
+        for excluded_port in "${excluded_ports[@]}"; do
+            if [ "$port" -eq "$excluded_port" ]; then
+                return 2  # Excluded port
+            fi
+        done
+        return 0  # Valid port number
+    else
+        return 1  # Invalid port number
+    fi
+}
+
 while true; do
   read -p "Enter admin user name: " admin_user
   if [ -n "$admin_user" ]; then
@@ -178,6 +195,26 @@ read -p "Enter the ELASTIC SEARCH PASSWORD (Default: ${e_temp_password}): " es_p
 if [ -z ${es_password} ] ; then
   es_password=${e_temp_password}
 fi
+
+# Prompt the user until a valid port is entered
+while true; do
+  read -p "Enter a port number (1-65535, excluding 80, 443, and 3000): " port
+  # Validate the input
+  validate_port "$port"
+  case $? in
+    0)
+      echo "SSH  port will be: $port"
+      ssh_port=$port
+      break  # Exit the loop as a valid port has been entered
+      ;;
+    1)
+      echo "Invalid port number. Please enter a valid port number between 1 and 65535."
+      ;;
+    2)
+      echo "Invalid port number. Port $port is excluded. Please choose a different port."
+      ;;
+  esac
+done
 
 # Remove old docker container if docker already present 
 if docker -v &>/dev/null; then
@@ -694,7 +731,7 @@ Host *
 #   IdentityFile ~/.ssh/id_dsa
 #   IdentityFile ~/.ssh/id_ecdsa
 #   IdentityFile ~/.ssh/id_ed25519
-   Port 22922
+   Port ${ssh_port}
 #   Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc
 #   MACs hmac-md5,hmac-sha1,umac-64@openssh.com
 #   EscapeChar ~
@@ -729,7 +766,7 @@ PermitRootLogin yes
 
 Include /etc/ssh/sshd_config.d/*.conf
 
-Port 22922
+Port ${ssh_port}
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::
@@ -853,7 +890,7 @@ sudo dpkg-reconfigure -plow unattended-upgrades --unseen-only
 sudo apt-get install ufw
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
-sudo ufw allow 22922/tcp comment 'SSH'
+sudo ufw allow ${ssh_port}/tcp comment 'SSH'
 sudo ufw allow http comment 'HTTP'
 sudo ufw allow https comment 'HTTPS'
  yes | sudo ufw enable
@@ -1843,3 +1880,4 @@ echo "Admin email:  ${admin_email}  and  password: ${admin_password}"
 echo "Database user:  ${db_user}  ,  password: ${db_password}  and name ${db_name}"
 echo "Elasticsearch user name:  ${es_user}  and  password: ${es_password}"
 echo "The Mastodon instance can be accessed on https://${domain_name}"
+echo "Now SSH port is ${ssh_port}"
