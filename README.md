@@ -20,7 +20,7 @@ Whether you're working with a fresh server or an existing setup, this script is 
 ## Requirements
 
 - Server or VPS with minimum 4GB RAM, 2 vCPU, and 65 GB storage.
-- Ubuntu v22.04 LTS.
+- Ubuntu 20.04 LTS.
 - Open ports:  443, 80 and SSH (Which you will choose in the script).
 - Active internet connection to fetch packages and Docker images.
 - Domain name pointing to the server's IP address (necessary for SSL certification).

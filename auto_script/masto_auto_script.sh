@@ -309,7 +309,7 @@ services:
 
     restart: always
 
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.8
+    image: elasticsearch:7.17.12 #docker.elastic.co/elasticsearch/elasticsearch:7.17.8
 
     environment:
 
@@ -357,7 +357,7 @@ services:
 
     volumes:
 
-      - /opt/mastodon/data/elasticsearch:/usr/share/elasticsearch/data
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
 
     ulimits:
 
@@ -595,6 +595,10 @@ docker compose -f ${work_dir}/docker-compose.yml run --rm console bundle exec ra
 
 # Start Mastadon application.
 docker compose -f ${work_dir}/docker-compose.yml up -d
+sudo chown 1000:1000 ${work_dir}/data/elasticsearch
+sudo chown 1000:1000 ${work_dir}/data/postgres
+sudo chown 1000:1000 ${work_dir}/data/redis
+sudo chown 1000:1000 ${work_dir}/data/public
 
 # Setting up the nginx 
 
