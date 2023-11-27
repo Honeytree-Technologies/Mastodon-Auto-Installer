@@ -99,7 +99,7 @@ It's essential to recognize that the security landscape is dynamic. Stay informe
      b. Renew & replace the certificate.
 
 ## Disclaimer
-     You understand and agree that using the installer is solely at your own risk, and you are responsible for any issues regarding quality, performance, accuracy, and effort. Additionally, support is only available to managed services clients of[Honeytree Technologies, LLC](https://honeytreetech.com); no free support is provided."
+Using the installer is solely at your own risk, and you are responsible for any issues regarding quality, performance, accuracy, and effort. Additionally, support is only available to managed services clients of[Honeytree Technologies, LLC](https://honeytreetech.com); no free support is provided."
 
 ## Credits
 
